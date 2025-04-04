@@ -14,11 +14,19 @@ def analyze_results(df):
     return frequency
 
 def generate_possible_games(frequency, num_games=10):
-    # Gerar jogos possíveis com base na frequência dos números sorteados
-    all_numbers = list(frequency.index)
+    # Garantir que todos os números sejam inteiros e válidos
+    all_numbers = []
+    for item in frequency.index:
+        try:
+            number = int(item)
+            all_numbers.append(number)
+        except ValueError:
+            # Ignorar entradas que não são números válidos
+            continue
+    
     possible_games = []
     for _ in range(num_games):
-        game = random.sample(all_numbers[:15], 15)  # Seleciona os 15 números mais frequentes
+        game = random.sample(all_numbers[:25], 15)  # Seleciona 15 números aleatórios dos 25 mais frequentes
         possible_games.append(sorted(game))
     return possible_games
 
